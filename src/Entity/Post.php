@@ -2,14 +2,19 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 class Post{
     private int $id;
+
     private ?string $title = NULL;
+    
     private string $content;
+
     private ?string $image = NULL;
     private $user;
 
-    public function getId() : int
+    public function getId() 
     {
         return $this->id; 
     }
@@ -41,6 +46,16 @@ class Post{
         return $this;
     }
     
+    public function getImage()
+    {
+        return $this->image;
+    }
+    public function setImage($image): self
+    {
+        $this->image = $image;
+        return $this;
+    }
+    
     public function getUser()
     {
         return $this->user;
@@ -52,3 +67,4 @@ class Post{
         return $this;
     }
 }
+
