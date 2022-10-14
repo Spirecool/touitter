@@ -22,7 +22,7 @@ class PostType extends AbstractType {
                 "label" => "Titre", 
                 "required" => true,
                 "constraints" => [
-                    new Length (["min"=> 5, "max"=> 320, "minMessage" => "Le contenu doit faire au minimum 5 caractères", "maxMessage" => "Le contenu doit faire au maximum 320 caractères" ])
+                    new Length (["min"=> 6, "max"=> 150, "minMessage" => "Le contenu doit faire au minimum 6 caractères", "maxMessage" => "Le contenu doit faire au maximum 150 caractères" ])
                 ]
             ])
             ->add("content", TextareaType::class, [
