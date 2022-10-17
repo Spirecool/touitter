@@ -4,22 +4,29 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Form\PostType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PostController extends AbstractController
 {
     #[Route('/')]
-    public function index(): Response
+    public function index(ManagerRegistry $doctrine ): Response
     {
-        return $this->render('post/index.html.twig');
+        //on récupère d'abord le Pository
+        $repository = $doctrine->getRepository(Post::class);
+        $posts = $repository->findAll();// SELECT * FROM 'post'
+        return $this->render('post/index.html.twig', [
+            //on envoie au template tous les posts
+            "posts" => $posts 
+        ]);
     }
 
     #[Route('/post/new')]
     // on injecte la requête HTTP
-    public function create(Request $request): Response
+    public function create(Request $request, ManagerRegistry $doctrine): Response
     {
         // création du formulaire
         $post = new Post();
@@ -30,7 +37,9 @@ class PostController extends AbstractController
         
         //on s'assure de la validité du formulaire et que les valeurs sont cohérentes
         if ($form->isSubmitted() && $form->isValid()) {
-            // dump($post);
+            $em = $doctrine->getManager();
+            $em->persist($post);
+            $em->flush();
         }
         return $this->render('post/form.html.twig', [
             "post_form" => $form->createView()

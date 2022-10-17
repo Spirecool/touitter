@@ -19,10 +19,10 @@ class Post{
     #[ORM\Column(type: "text", length: 320)]
     private string $content;
 
-    #[ORM\Column(type:"text")]
+    #[ORM\Column(type:"text", nullable : true)]
     private ?string $image = NULL;
 
-    // #[ORM\Column(type: "User")]
+    // #[ORM\Column(targetEntity: "App\Entity\User, inversedBy: "posts")]
     // private $user;
 
     public function getId() 
