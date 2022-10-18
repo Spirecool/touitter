@@ -22,8 +22,8 @@ class Post{
     #[ORM\Column(type:"text", nullable : true)]
     private ?string $image = NULL;
 
-    // #[ORM\Column(targetEntity: "App\Entity\User, inversedBy: "posts")]
-    // private $user;
+    #[ORM\ManyToMany(targetEntity: "App\Entity\User", inversedBy: "posts")]
+    private $user;
 
     public function getId() 
     {

@@ -15,8 +15,10 @@
                     <h5 class="card-title">{{ post.title }}</h5>
                 {% endif %}
                     <p class="card-text">{{ post.content }}</p>
-                    <a href="#" class="btn btn-danger">Supprimer</a>
-                    <a href="#" class="btn btn-warning">Supprimer</a>
+                    <a href="{{ path('delete_post', {'id': post.id} ) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                    <a href="{{ path('edit_post', {'id': post.id} ) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href="{{ path('copy_post', {'id': post.id} ) }}" class="btn btn-info"><i class="fa-solid fa-copy"></i></a>
+                    
                 </div>
             </div>
         {% endfor %}
@@ -24,6 +26,3 @@
 
 {% endblock %}
 
-
-
-Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga necessitatibus distinctio labore eum quos ad, quo non. Voluptatem, veritatis in!
