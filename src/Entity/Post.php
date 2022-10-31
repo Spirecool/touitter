@@ -22,7 +22,9 @@ class Post{
     #[ORM\Column(type:"text", nullable : true)]
     private ?string $image = NULL;
 
-    #[ORM\ManyToMany(targetEntity: "App\Entity\User", inversedBy: "posts")]
+    #[ORM\ManyToOne(targetEntity: "App\Entity\User", inversedBy: "posts")]
+    // permet la suppression en cascade: quand on supprime un utilisateur, on supprime tous ses posts
+    #[ORM\JoinColumn (name:"user_id", referencedColumnName:"id", onDelete:"CASCADE")]
     private $user;
 
     public function getId() 

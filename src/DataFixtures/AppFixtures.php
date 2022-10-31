@@ -20,7 +20,7 @@ class AppFixtures extends Fixture
     {
         $user = new User($this->passwordHasher);
 
-        $user->setUsername("Spirecool")->setPassword('123');
+        $user->setUsername("admin")->setPassword('password');
 
         $manager->persist($user);
         $manager->flush();

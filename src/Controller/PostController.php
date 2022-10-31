@@ -37,6 +37,9 @@ class PostController extends AbstractController
         
         //on s'assure de la validité du formulaire et que les valeurs sont cohérentes
         if ($form->isSubmitted() && $form->isValid()) {
+            //on associe le post avec l'id de l'user qui l'a écrit
+            $post->setUser($this->getUser());
+            
             $em = $doctrine->getManager();
             $em->persist($post);
             $em->flush();

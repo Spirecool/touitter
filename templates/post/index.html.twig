@@ -14,12 +14,16 @@
                 {% if post.title %}
                     <h5 class="card-title">{{ post.title }}</h5>
                 {% endif %}
+                {% if app.user %}
                     <p class="card-text">{{ post.content }}</p>
                     <a href="{{ path('delete_post', {'id': post.id} ) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                     <a href="{{ path('edit_post', {'id': post.id} ) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                     <a href="{{ path('copy_post', {'id': post.id} ) }}" class="btn btn-info"><i class="fa-solid fa-copy"></i></a>
-                    
+                {% endif %}
                 </div>
+                <div class="card-footer">
+                     <small class="text-muted">{{ post.user.username }}</small>
+                 </div>
             </div>
         {% endfor %}
     </div>
