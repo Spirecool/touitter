@@ -29,6 +29,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    //confirmation du mot de passe, mais ne sera pas mis en BDD
+    private ?string $confirm = null;
+
     #[ORM\OneToMany(targetEntity: "App\Entity\Post", mappedBy: "user")]
     private $posts;
 
@@ -106,6 +109,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * Get the value of confirm
+     */ 
+    public function getConfirm()
+    {
+        return $this->confirm;
+    }
+
+    /**
+     * Set the value of confirm
+     *
+     * @return  self
+     */ 
+    public function setConfirm($confirm)
+    {
+        $this->confirm = $confirm;
+
+        return $this;
     }
 }
 

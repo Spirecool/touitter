@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+        {{ form_start(form, { 'attr': {'class': 'container'}}) }}
+        {{ form_rest(form) }}
+        {# <label for="confirm"> Confirmer le mot de passe </label>
+        <input type="password" name="confirm" id="confirm" class="form-control">  #}
+
+        <input type="submit" class="btn btn-success mt-4" value="Créer le compte"> 
+        <div>
+            <a href="/login" class="btn btn-link">Se connecter</a>
+        </div>
+
+{% endblock %}
+
