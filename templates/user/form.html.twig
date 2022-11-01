@@ -1,15 +1,22 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-        {{ form_start(form, { 'attr': {'class': 'container'}}) }}
-        {{ form_rest(form) }}
-        {# <label for="confirm"> Confirmer le mot de passe </label>
-        <input type="password" name="confirm" id="confirm" class="form-control">  #}
+	{{ form_start(form, { 'attr': {'class': 'container'}}) }}
+    {{ form_row(form.username)}}
+    {{ form_label(form.password)}}
+	<div class="input-group mb-3">
+		{{ form_widget(form.password)}}
+		<span role="button" class="input-group-text" onclick="togglePassword()">
+			<i class="bi bi-eye" id="eye"></i>
+			<i class="bi bi-eye-slash d-none" id="eye-slash"></i>
+		</span>
+	</div>
+    {{ form_errors(form.username)}}
+	{{ form_rest(form) }}
 
-        <input type="submit" class="btn btn-success mt-4" value="Créer le compte"> 
-        <div>
-            <a href="/login" class="btn btn-link">Se connecter</a>
-        </div>
+	<input type="submit" class="btn btn-success mt-4" value="Créer le compte">
+	<div>
+		<a href="/login" class="btn btn-link">Se connecter</a>
+	</div>
 
 {% endblock %}
-

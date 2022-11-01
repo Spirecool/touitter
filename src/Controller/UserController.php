@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,6 +22,15 @@ class UserController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+            // //on récupère tous les utilisateurs
+            // $repository = $doctrine->getRepository(User::class);
+            // $users = $repository->findAll();
+            // // on va les parcourir et si déjà existant on génère une erreur
+            // foreach ($users as $u) {
+            //     if ($u->getUsername() === $user->getUsername() ) {
+            //         return new Exception("Ce nom d'utilisateur est déjà pris !");
+            //     }
+            // }
             $em = $doctrine->getManager();
             $em->persist($user);
             $em->flush();
