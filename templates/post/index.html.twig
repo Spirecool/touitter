@@ -29,8 +29,11 @@
                 {% endif %}
                 </div>
                 <div class="card-footer">
-                     <small class="text-muted">{{ post.user.username }}</small>
-                 </div>
+                    <small class="text-muted">Publié par {{ post.user.username }} 
+                        le {{ post.publishedAt|date('d/m/Y')}} 
+                        à {{ post.publishedAt|date('H:i') }}
+                    </small>
+                </div>
             </div>
         {% endfor %}
     </div>

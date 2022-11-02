@@ -22,6 +22,9 @@ class Post{
     #[ORM\Column(type:"text", nullable : true)]
     private ?string $image = NULL;
 
+    #[ORM\Column(type:"datetime")]
+    private \DateTime $publishedAt;
+
     #[ORM\ManyToOne(targetEntity: "App\Entity\User", inversedBy: "posts")]
     // permet la suppression en cascade: quand on supprime un utilisateur, on supprime tous ses posts
     #[ORM\JoinColumn (name:"user_id", referencedColumnName:"id", onDelete:"CASCADE")]
@@ -76,6 +79,26 @@ class Post{
     public function setUser($user)
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of publishedAt
+     */ 
+    public function getPublishedAt()
+    {
+        return $this->publishedAt;
+    }
+
+    /**
+     * Set the value of publishedAt
+     *
+     * @return  self
+     */ 
+    public function setPublishedAt($publishedAt)
+    {
+        $this->publishedAt = $publishedAt;
 
         return $this;
     }

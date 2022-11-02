@@ -30,7 +30,7 @@ class PostController extends AbstractController
     // on injecte la requête HTTP
     public function create(Request $request, ManagerRegistry $doctrine): Response
     {
-        if ($this->getUser()) {
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
             // création du formulaire
             $post = new Post();
             $form = $this->createForm(PostType::class, $post);
@@ -42,18 +42,17 @@ class PostController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 //on associe le post avec l'id de l'user qui l'a écrit
                 $post->setUser($this->getUser());
+                $post->setPublishedAt(new \DateTime());
                 $em = $doctrine->getManager();
                 $em->persist($post);
                 $em->flush();
                 // on redirige vers la page d'accueil
                 return $this->redirectToRoute('home');
             }
-            return $this->render('user/form.html.twig', [
+            return $this->render('post/form.html.twig', [
                 "form" => $form->createView()
             ]);
-        } else {
-            return $this->redirectToRoute("login");
-        }
+      
     }
 
     #[Route('/post/delete/{id<\d+>}', name:'delete_post')]
@@ -111,6 +110,5 @@ class PostController extends AbstractController
         return $this->redirectToRoute('home');
     }
 }
-
 
 
