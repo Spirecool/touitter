@@ -9,17 +9,24 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException as ExceptionAccessDeniedException;
 
 class PostController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function index(ManagerRegistry $doctrine ): Response
+    public function index(ManagerRegistry $doctrine, Request $request ): Response
     {
+            //formulaire de recherche
+            $searchedString = $request->request->get('search'); 
             //on récupère d'abord le Repository
             $repository = $doctrine->getRepository(Post::class);
-            $posts = $repository->findAll();// SELECT * FROM 'post'
+            //on affiche tous les touitts
+            $posts = $repository->findAll();// équivaut à un SELECT * FROM 'post'
+            //si la variable est vide ou nulle on fait un findBy
+            if ($searchedString) {
+                $posts = $repository->findBy(['title' => $searchedString]); 
+                    // équivaut à un SELECT * FROM 'post' WHERE title = $searchedString 
+            }
+            
             return $this->render('post/index.html.twig', [
             //on envoie au template tous les posts
             "posts" => $posts 
@@ -52,7 +59,6 @@ class PostController extends AbstractController
             return $this->render('post/form.html.twig', [
                 "form" => $form->createView()
             ]);
-      
     }
 
     #[Route('/post/delete/{id<\d+>}', name:'delete_post')]
@@ -61,7 +67,7 @@ class PostController extends AbstractController
 
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
          // si l'utilisateur connecté est différent de l'utilisateur du Post
-         if ($this->getUser()!== $post->getUser()) {
+        if ($this->getUser()!== $post->getUser()) {
             // throw new ExceptionAccessDeniedException("Vous n'avez pas l'autorisation d'accéder à cette fonctionnalité");
             // on redirige vers la page Home
             return $this->redirectToRoute('home');
@@ -109,6 +115,7 @@ class PostController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('home');
     }
+
 }
 
 
