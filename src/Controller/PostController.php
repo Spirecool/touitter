@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException as ExceptionAccessDeniedException;
 
 class PostController extends AbstractController
 {
@@ -57,7 +59,14 @@ class PostController extends AbstractController
     #[Route('/post/delete/{id<\d+>}', name:'delete_post')]
     public function delete(Post $post, ManagerRegistry $doctrine): Response
     {
+
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+         // si l'utilisateur connecté est différent de l'utilisateur du Post
+         if ($this->getUser()!== $post->getUser()) {
+            // throw new ExceptionAccessDeniedException("Vous n'avez pas l'autorisation d'accéder à cette fonctionnalité");
+            // on redirige vers la page Home
+            return $this->redirectToRoute('home');
+        }
         $em = $doctrine->getManager();
         $em->remove($post);
         $em->flush();
@@ -68,6 +77,11 @@ class PostController extends AbstractController
     public function update(Post $post, Request $request, ManagerRegistry $doctrine): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if ($this->getUser()!== $post->getUser()) {
+            $this->addFlash("error", "Vous ne pouvez pas modifier une publication qui n'est pas la vôtre");
+            return $this->redirectToRoute("home");
+        }
+        
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
         
@@ -86,6 +100,9 @@ class PostController extends AbstractController
     public function copy(Post $post,ManagerRegistry $doctrine): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if ($this->getUser()!== $post->getUser()) {
+            return $this->redirectToRoute('home');
+        }
         $copyPost = clone $post;
 
         $em = $doctrine->getManager();

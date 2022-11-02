@@ -3,8 +3,13 @@
 {% block title %}Touitts{% endblock %}
 
 {% block body %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
 
-    <div class="d-flex justify-content-around flex-wrap container mt-5">
+        <div class="d-flex justify-content-around flex-wrap container mt-5">
         {% for post in posts %}
             <div class="card" style="width: 18rem;">
                 {% if post.image %}
@@ -16,9 +21,11 @@
                 {% endif %}
                 {% if app.user %}
                     <p class="card-text">{{ post.content }}</p>
+                    {% if app.user and app.user.username is same as post.user.username %}
                     <a href="{{ path('delete_post', {'id': post.id} ) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                     <a href="{{ path('edit_post', {'id': post.id} ) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                     <a href="{{ path('copy_post', {'id': post.id} ) }}" class="btn btn-info"><i class="fa-solid fa-copy"></i></a>
+                    {% endif %}
                 {% endif %}
                 </div>
                 <div class="card-footer">
