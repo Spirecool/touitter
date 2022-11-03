@@ -5,26 +5,16 @@ namespace App\Repository;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\Exception\UnsupportedPostException;
-use Symfony\Component\Security\Core\Post\PasswordAuthenticatedPostInterface;
-use Symfony\Component\Security\Core\Post\PasswordUpgraderInterface;
 
-/**
- * @extends ServiceEntityRepository<Post>
- *
- * @method Post|null find($id, $lockMode = null, $lockVersion = null)
- * @method Post|null findOneBy(array $criteria, array $orderBy = null)
- * @method Post[]    findAll()
- * @method Post[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-class PostRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+
+class PostRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Post::class);
     }
 
-    public function save(Post $entity, bool $flush = false): void
+    public function add(Post $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -42,18 +32,17 @@ class PostRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
     }
 
-    /**
-     * Used to upgrade (rehash) the post's password automatically over time.
-     */
-    public function upgradePassword(PasswordAuthenticatedPostInterface $post, string $newHashedPassword): void
+    public function findBySearch($search): array
     {
-        if (!$post instanceof Post) {
-            throw new UnsupportedPostException(sprintf('Instances of "%s" are not supported.', \get_class($post)));
-        }
-
-        $post->setPassword($newHashedPassword);
-
-        $this->save($post, true);
+        return $this->createQueryBuilder('p')
+            // ->innerJoin('p.user', 'u', 'WITH', 'u.username = :username')
+            //on recherche par titre et par contenu (mais pas par utilisateur)
+            ->andWhere('p.title LIKE :search OR p.content LIKE :search')
+            ->setParameter('search', '%' . $search . '%')
+            ->orderBy('p.publishedAt', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
     }
-
 }
+

@@ -13,23 +13,24 @@
         {% for post in posts %}
             <div class="card" style="width: 18rem;">
                 {% if post.image %}
-                    <img src="{{ post.image}} " alt="{{post.title}} class="card-img-top"">
+                    <img src="{{ asset('uploads/' ~ post.image) }} " alt="{{post.title}}" class="card-img-top">
                 {% endif %}
                 <div class="card-body">
                 {% if post.title %}
                     <h5 class="card-title">{{ post.title }}</h5>
                 {% endif %}
-                {% if app.user %}
+                {# {% if app.user %} #}
                     <p class="card-text">{{ post.content }}</p>
                     {% if app.user and app.user.username is same as post.user.username %}
                     <a href="{{ path('delete_post', {'id': post.id} ) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                     <a href="{{ path('edit_post', {'id': post.id} ) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                     <a href="{{ path('copy_post', {'id': post.id} ) }}" class="btn btn-info"><i class="fa-solid fa-copy"></i></a>
                     {% endif %}
-                {% endif %}
+                {# {% endif %} #}
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted">Publié par {{ post.user.username }} 
+                    <small class="text-muted">
+                        Publié par {{ post.user.username }} 
                         le {{ post.publishedAt|date('d/m/Y')}} 
                         à {{ post.publishedAt|date('H:i') }}
                     </small>
