@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a334e6e0f790939a3e80645bfbef39a",
+    "content-hash": "767f17f6a3fb5d2e57931d5584e6e31b",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1523,57 +1523,6 @@
                 }
             ],
             "time": "2022-09-13T10:33:30+00:00"
-        },
-        {
-            "name": "nat/deploy",
-            "version": "1.3.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Nathalie-Verdavoir/deploy-heroku.git",
-                "reference": "91328f9b3da25a5aa033de608e4cf4d7660b41fa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Nathalie-Verdavoir/deploy-heroku/zipball/91328f9b3da25a5aa033de608e4cf4d7660b41fa",
-                "reference": "91328f9b3da25a5aa033de608e4cf4d7660b41fa",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.5|>=8.0.0",
-                "symfony/process": ">=5.1.0|^6.1.0"
-            },
-            "type": "package",
-            "autoload": {
-                "psr-4": {
-                    "Nat\\DeployBundle\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "mit"
-            ],
-            "authors": [
-                {
-                    "name": "Nathalie Verdavoir",
-                    "email": "nathalie.verdavoir@laposte.net",
-                    "homepage": "https://www.linkedin.com/in/nathalie-verdavoir/",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Add command line to deploy a symfony project on Heroku",
-            "homepage": "https://www.linkedin.com/in/nathalie-verdavoir/",
-            "keywords": [
-                "ClearDB",
-                "bundle",
-                "deploy",
-                "heroku",
-                "symfony"
-            ],
-            "support": {
-                "issues": "https://github.com/Nathalie-Verdavoir/deploy-heroku/issues",
-                "source": "https://github.com/Nathalie-Verdavoir/deploy-heroku/tree/1.3.3"
-            },
-            "time": "2022-08-08T19:06:13+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -4270,67 +4219,6 @@
                 }
             ],
             "time": "2022-05-24T11:49:31+00:00"
-        },
-        {
-            "name": "symfony/process",
-            "version": "v6.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/process.git",
-                "reference": "a6506e99cfad7059b1ab5cab395854a0a0c21292"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/a6506e99cfad7059b1ab5cab395854a0a0c21292",
-                "reference": "a6506e99cfad7059b1ab5cab395854a0a0c21292",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Process\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Executes commands in sub-processes",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/process/tree/v6.1.3"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2022-06-27T17:24:16+00:00"
         },
         {
             "name": "symfony/property-access",
